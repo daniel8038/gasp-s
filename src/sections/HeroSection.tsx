@@ -37,7 +37,7 @@ const HeroSection = () => {
         start: "1% top",
         end: "bottom top",
         scrub: true,
-        markers: true,
+        // markers: true,
       },
     });
     heroTl.to(".hero-container", {
@@ -49,7 +49,7 @@ const HeroSection = () => {
   });
 
   return (
-    <section className="bg-main-bg">
+    <section className="bg-main-bg ">
       <div className="hero-container ">
         {/*  */}
         <img

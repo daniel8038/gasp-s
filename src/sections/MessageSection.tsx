@@ -19,7 +19,7 @@ const MessageSection = () => {
         start: "top center",
         end: "30% center",
         scrub: true,
-        markers: true,
+        // markers: true,
       },
     });
     gsap.to(secMsgSplit.words, {
@@ -31,7 +31,7 @@ const MessageSection = () => {
         start: "top center",
         end: "bottom center",
         scrub: true,
-        markers: true,
+        // markers: true,
       },
     });
     const revealTl = gsap.timeline({
