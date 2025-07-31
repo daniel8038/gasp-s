@@ -43,8 +43,14 @@ const nutrientLists = [
   { label: "Vitamin D", amount: "5mcg" },
   { label: "Iron", amount: "1mg" },
 ];
-
-const cards = [
+export interface Card {
+  src: string;
+  translation?: string;
+  rotation: string;
+  name: string;
+  img: string;
+}
+const cards: Card[] = [
   {
     src: "/videos/f1.mp4",
     rotation: "rotate-z-[-10deg]",
