@@ -1,14 +1,26 @@
 import { useGSAP } from "@gsap/react";
-import { SplitText } from "gsap/all";
 import gsap from "gsap";
+import { SplitText } from "gsap/all";
+import { useMediaQuery } from "react-responsive";
+
 const HeroSection = () => {
+  const isMobile = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
+
+  const isTablet = useMediaQuery({
+    query: "(max-width: 1024px)",
+  });
+
   useGSAP(() => {
-    // 字符拆分 创建动画
     const titleSplit = SplitText.create(".hero-title", {
       type: "chars",
     });
 
-    const tl = gsap.timeline({ delay: 1 });
+    const tl = gsap.timeline({
+      delay: 1,
+    });
+
     tl.to(".hero-content", {
       opacity: 1,
       y: 0,
@@ -21,23 +33,24 @@ const HeroSection = () => {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
           ease: "circ.out",
         },
-        //   延迟 0.5s
         "-=0.5"
       )
-      .from(titleSplit.chars, {
-        yPercent: 200,
-        stagger: 0.02, //交错动画
-        ease: "power2.out",
-      });
+      .from(
+        titleSplit.chars,
+        {
+          yPercent: 200,
+          stagger: 0.02,
+          ease: "power2.out",
+        },
+        "-=0.5"
+      );
 
-    // scroll
     const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".hero-container",
         start: "1% top",
         end: "bottom top",
         scrub: true,
-        // markers: true,
       },
     });
     heroTl.to(".hero-container", {
@@ -49,15 +62,30 @@ const HeroSection = () => {
   });
 
   return (
-    <section className="bg-main-bg ">
-      <div className="hero-container ">
-        {/*  */}
-        <img
-          src="/images/static-img.png"
-          alt=""
-          className="absolute bottom-0 left-1/2 -translate-x-1/2  object-cover scale-100 md:scale-120"
-        />
-        {/* Content */}
+    <section className="bg-main-bg">
+      <div className="hero-container">
+        {isTablet ? (
+          <>
+            {isMobile && (
+              <img
+                src="/images/hero-bg.png"
+                className="absolute bottom-40 size-full object-cover"
+              />
+            )}
+            <img
+              src="/images/hero-img.png"
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 object-auto"
+            />
+          </>
+        ) : (
+          <video
+            src="/videos/hero-bg.mp4"
+            autoPlay
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
         <div className="hero-content opacity-0">
           <div className="overflow-hidden">
             <h1 className="hero-title">Freaking Delicious</h1>
@@ -72,6 +100,7 @@ const HeroSection = () => {
               <h1>Protein + Caffine </h1>
             </div>
           </div>
+
           <h2>
             Live life to the fullest with SPYLT: Shatter boredom and embrace
             your inner kid with every deliciously smooth chug.
